@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poccketmon Card</title>
+</head>
+<body>
+   <div class="container">
+    <div class="card"></div>
+    <div class="overlay"></div>
+   </div>
+   <style>
+    body {
+        background-color: hsl(220, 7%, 24%);
+        width: 100%;
+        height: 100vh;
+    }
+    .container {
+        width: 220px;
+        height: 310px;
+        transition: all 0.1s;
+        position: relative;
+        margin: 0 auto;
+        margin-top: 100px;
+
+        
+    }
+    .overlay {
+        top: 0;
+        position: absolute;
+        width: 220px;
+        height: 310px;
+        background: linear-gradient(105deg, 
+        transparent 40%,rgba(255, 219, 112, 0.8) 45%, rgba(132, 50, 255, 0.6) 50%, transparent 54%);
+         background-size: 150% 150%;
+         background-position: 100%;
+        filter: brightness(1.2) opacity(0.8);
+        mix-blend-mode: color-dodge;
+        background-size: 150% 150%;
+        background-position: 100%;
+        transition: all 0.1s;
+    }
+    .card {
+        position: relative;
+        width: 220px;
+        height: 310px;
+        background-image: url(pika.jpg);
+        background-size: cover;
+        border-radius: 10px;
+    }
+   </style>
+   <script>
+    var container = document.querySelector(".container") //container위에 마우스가 움직이면 카드가 회전
+    var overlay = document.querySelector(".overlay")
+    container.addEventListener("mousemove", function(e) {
+        var x = e.offsetX
+        var y = e.offsetY
+        console.log(x, y) //마우스 좌표가 px단위로 콘솔에 찍힌다.
+        var rotateY = -1/5 * x + 20   //1차 함수
+        var rotateX = 4/30 * y - 20   //1차 함수
+
+        overlay.style = `background-position : ${x/5 + y/5}%` //특정 패턴을 무한반복 시켜주기 떄문
+        container.style = ` transform : perspective(350px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`  //마우스 좌표에 따라 deg가 계속 변해야함
+    })
+   
+    //마우스를 떼면 효과 제거
+    container.addEventListener("mouseout", function() {
+        overlay.style = "filter : opacity(0)"
+        container.style = "transform : perspective(350deg) rotateY(0deg) rotateX(0deg)"
+    })
+   </script>
+</body>
+</html>
